@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить оружие</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container">
+    <div th:if="${successMessage}" style="color: green;">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <h1>Добавление оружия</h1>
+    <form action="/weapon/add" method="post">
+        <div>
+            <label for="name">Название:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="tirWeapon">Тир оружия:</label>
+            <input type="number" id="tirWeapon" name="tirWeapon" required>
+        </div>
+        <h3>Скил героя</h3>
+        <div id="skills">
+            <div class="skill">
+                <input type="text" name="skills[0].name_skill" placeholder="Имя скила">
+                <input type="text" name="skills[0].type_damage" placeholder="Тип урона">
+                <select typeof="text" id="type_skill" name="skills[0].type_skill" >
+                    <option value="">Выберите тип способности</option>
+                    <option>Active</option>
+                    <option>Passive</option>
+                </select>
+
+                <input type="text" name="description_skill" placeholder="Описание">
+                <input type="number" name="damage_skill" placeholder="Урон">
+                <h4>Дополнительные параметры скила</h4>
+                <div class="parameters">
+                    <div class="parameter">
+                        <input type="text" name="skills[0].parameters[0].name_parameters" placeholder="Имя параметра">
+                        <input type="number" name="skills[0].parameters[0].count" placeholder="Значение параметра">
+                        <hr>
+                    </div>
+                </div>
+                <button type="button" onclick="addParameters(this)">Добавить Параметр</button>
+                <!-- Добавить другие нужные поля -->
+                <label for="icon_skill">Иконка скила:</label>
+                <input type="file" id="icon_skill" name="icon_skill" accept="image/skill/*" >
+                <hr>
+            </div>
+        </div>
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Патч</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container">
+    <h1>Обновления</h1>
+    <!-- Выводим список патчей -->
+    <div th:each="version : ${versions}">
+        <div class="version-entry">
+            <!-- Заголовок патча -->
+            <h2 th:text="${version.title}"></h2>
+
+            <!-- Дата патча -->
+            <p th:text="${version.localDate}"></p>
+
+            <!-- Содержание патча (если нужно, обрезать, чтобы не показывать всю длинную строку) -->
+            <div th:utext="${version.content}"></div>
+
+            <form th:action="@{'/version/edit/' + ${version.getId()}}" method="get">
+                <!-- Замените {id} на id героя -->
+                <button type="submit" class="delete-edit">Изменить Версию</button>
+            </form>
+
+            <form th:action="@{'/version/delete/' + ${version.getId()}}" method="post">
+                <!-- Замените {id} на id героя -->
+                <button type="submit" class="delete-button">Удалить Версию</button>
+            </form>
+        </div>
+    </div>
+</div>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+</body>
+</html>

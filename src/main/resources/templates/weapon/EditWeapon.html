@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменить оружие</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container">
+    <h1>Редактирование оружия</h1>
+    <form th:action="@{'/weapons/edit/' + ${weapon.id}}" method="post">
+        <div>
+            <label for="name">Название:</label>
+            <input type="text" id="name" name="name" th:value="${weapon.name}" required>
+        </div>
+        <div>
+            <label for="tirWeapon">Тир оружия:</label>
+            <input type="number" id="tirWeapon" name="tirWeapon" th:value="${weapon.tirWeapon}" required>
+        </div>
+        <div>
+            <label for="skill">Умение:</label>
+            <input type="text" id="skill" name="skill.id" th:value="${weapon.skill?.id}" placeholder="ID умения">
+        </div>
+        <div>
+            <label for="icon">Иконка (URL):</label>
+            <input type="text" id="icon" name="icon" th:value="${weapon.icon}" required>
+        </div>
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+</body>
+</html>

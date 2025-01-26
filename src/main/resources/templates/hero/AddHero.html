@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить Героя</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container">
+    <!-- Уведомления -->
+    <div th:if="${successMessage}" style="color: green;">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <h1>Добавить Героя</h1>
+    <form id="heroForm" action="/heroes/add" method="post" enctype="multipart/form-data">
+        <!-- Имя героя -->
+        <div>
+            <label for="nameHero">Имя Героя:</label>
+            <input type="text" id="nameHero" name="nameHero">
+        </div>
+
+        <!-- Тир героя -->
+        <label for="tirHero">Тир Героя:</label>
+        <input type="number" id="tirHero" name="tirHero" min="1">
+
+        <!-- Вид героя -->
+        <div>
+            <label for="species">Раса Героя:</label>
+            <div class="select-wrapper">
+                <select id="species" name="species">
+                    <option value="">Выберите расу</option>
+                    <th:block th:each="species : ${species}">
+                        <option th:value="${species.id}" th:text="${species.name}"></option>
+                    </th:block>
+                </select>
+
+                <div class="add-class-wrapper">
+                    <a href="/categories/add/rasa" title="Добавить новую ">
+                        <i class="fas fa-plus text-success"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Классы героя -->
+        <div>
+            <div class="select-wrapper">
+                <div class="dropdown">
+                    <button class="dropdown-button">Выберите класс</button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <label>
+                                <input class="width-50" type="checkbox" value="" disabled /> Выберите класс
+                            </label>
+                        </li>
+                        <th:block th:each="classes : ${heroClasses}">
+                            <li>
+                                <label>
+                                    <input class="width-50" type="checkbox" th:value="${classes.id}" th:text="${classes.name}" />
+                                </label>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+                <div class="add-class-wrapper">
+                    <a href="/categories/add/class" title="Добавить новый класс">
+                        <i class="fas fa-plus text-success"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Макс. опыт -->
+        <label for="max_xp">Макс. XP:</label>
+        <input type="number" id="max_xp" name="max_xp">
+
+        <!-- Описание -->
+        <label for="description">Описание:</label>
+        <textarea id="description" name="description" rows="4"></textarea>
+
+        <!-- Фото -->
+        <label for="icon_hero">Иконка героя:</label>
+        <input type="file" id="icon_hero" name="icon" accept="image/hero/*" >
+        <!-- Фото -->
+        <label for="icon_hero2">Иконка героя:</label>
+        <input type="file" id="icon_hero2" name="icon2" accept="image/hero/*" >
+
+        <!-- Атаки -->
+        <h3>Атаки</h3>
+        <div id="attacks">
+            <!-- Поля для атаки можно будет добавить специальными кнопками -->
+            <!-- Пример одной атаки -->
+            <div class="attack">
+                <input type="number" name="attacks[0].speed_attack" placeholder="Скорость атаки">
+                <input type="number" name="attacks[0].damage" placeholder="Урон">
+                <input type="number" name="attacks[0].range_damage" placeholder="Урон на расстоянии">
+                <input type="number" name="attacks[0].speed_movement" placeholder="Скорость передвижения">
+                <input type="number" name="attacks[0].additional_spell_damage" placeholder="Доп. урон от заклинаний">
+                <input type="number" name="attacks[0].mana_recovery" placeholder="Восстановление маны">
+                <hr>
+                <!-- Добавить другие нужные поля -->
+            </div>
+        </div>
+        <button type="button" onclick="addAttack()">Добавить Атаку</button>
+
+        <!-- Брони -->
+        <h3>Брони</h3>
+        <div id="armors">
+            <div class="armor">
+                <input type="number" name="armors[0].armor" placeholder="Броня" step="any">
+                <input type="number" name="armors[0].protection_physical" placeholder="Физическая защита" step="any">
+                <input type="number" name="armors[0].protection_mag" placeholder="Магическая защита" step="any">
+                <input type="number" name="armors[0].protection_effects" placeholder="Защита от эффектов" step="any">
+                <input type="number" name="armors[0].protection_slowing_down" placeholder="Защита от замедления" step="any">
+                <input type="number" name="armors[0].avoidance" placeholder="Уклонение" step="any">
+                <input type="number" name="armors[0].restoration_health" placeholder="Восстановление здоровья" step="any">
+                <hr>
+                <!-- Добавить другие нужные поля -->
+            </div>
+        </div>
+        <button type="button" onclick="addArmor()">Добавить Броню</button>
+
+        <!-- Умения -->
+        <h3>Скил героя</h3>
+        <div id="skills">
+            <div class="skill">
+                <input type="text" name="skills[0].name_skill" placeholder="Имя скила">
+                <input type="text" name="skills[0].type_damage" placeholder="Тип урона">
+                <select typeof="text" id="type_skill" name="skills[0].type_skill" >
+                    <option value="">Выберите тип способности</option>
+                    <option>Active</option>
+                    <option>Passive</option>
+                </select>
+
+               <input type="text" name="description_skill" placeholder="Описание">
+               <input type="number" name="damage_skill" placeholder="Урон">
+               <h4>Дополнительные параметры скила</h4>
+               <div class="parameters">
+                   <div class="parameter">
+                       <input type="text" name="skills[0].parameters[0].name_parameters" placeholder="Имя параметра">
+                       <input type="number" name="skills[0].parameters[0].count" placeholder="Значение параметра">
+                       <hr>
+                   </div>
+               </div>
+               <button type="button" onclick="addParameters(this)">Добавить Параметр</button>
+               <!-- Добавить другие нужные поля -->
+                <label for="icon_skill">Иконка скила:</label>
+                <input type="file" id="icon_skill" name="icon_skill" accept="image/skill/*" >
+                <hr>
+            </div>
+        </div>
+        <button type="button" onclick="addSkill()">Добавить Умение</button>
+
+        <button class="green" type="submit">Сохранить героя</button>
+    </form>
+</div>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+<script src="/js/script.js"></script>
+</body>
+</html>

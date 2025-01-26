@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Админка</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="body_admin">
+    <!-- Боковая панель -->
+    <div class="sidebar">
+        <h2>Админка</h2>
+        <a href="/heroes/add" id="add-hero">Добавить героя</a>
+        <a href="/weapon/add" id="add-weapon">Добавить оружие</a>
+        <a href="/categories/add/rasa" id="add-race">Добавить расу</a>
+        <a href="/categories/add/class" id="add-class">Добавить класс</a>
+        <a href="/ability/add" id="add-ability">Добавить абилку</a>
+        <a href="/version/add" id="add-version">Добавить патч</a>
+        <a href="/articles/add" id="add-articles">Добавить гайд</a>
+    </div>
+    <hr>
+
+
+    <!-- Центральная область -->
+    <div class="main-content">
+        <h1>Меню</h1>
+        <div class="menu">
+            <a href="/version/admin" class="menu-item" id="version">Патчи</a>
+            <a href="/heroes/admin" class="menu-item" id="heroes">Герои</a>
+            <a href="" class="menu-item" id="weapons">Оружие</a>
+            <a href="" class="menu-item" id="races">Расы</a>
+            <a href="" class="menu-item" id="class">Классы</a>
+            <a href="/ability/admin" class="menu-item" id="abilities">Абилки</a>
+            <a href="/articles/all" class="menu-item">Гайды все</a>
+            <a href="/articles" class="menu-item" id="articles">Гайды опубликованные</a>
+            <a href="/articles/review" class="menu-item" id="articles-review">Гайды на проверки</a>
+            <a href="/articles/draft" class="menu-item" id="articles-draft">Гайды сохраненные</a>
+            <a href="/articles/archived" class="menu-item" id="articles-archived">Гайды архивные</a>
+        </div>
+    </div>
+</div>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+</body>
+</html>

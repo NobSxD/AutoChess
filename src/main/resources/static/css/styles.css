@@ -1,0 +1,498 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+.container_table {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    gap: 20px;
+}
+.tier-column {
+    width: 18%;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+.tier-column:hover {
+    transform: scale(1.05);
+}
+.tier-column h3 {
+    color: #ffcc00;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.hero-list {
+    list-style: none;
+    padding: 0;
+}
+.hero-item {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.hero-item span {
+    color: #fff;
+    font-size: 1.1em;
+}
+.hero-item img {
+    width: 40px;
+    height: 35px;
+    border-radius: 10%;
+}
+footer {
+    background-color: #2c2c2c;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+form button, form select {
+    width: 100%; /* Убираем 10px с каждой стороны для отступа */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px; /* Отступ справа */
+}
+
+form input, form textarea {
+    width: calc(100% - 20px); /* Убираем 10px с каждой стороны для отступа */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px; /* Отступ справа */
+}
+
+form button {
+    background-color: #6c6262;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #449e12;
+}
+.green{
+    background-color: green;
+}
+.delete-button {
+    background-color: #ab2e2e;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+.delete-button:hover {
+    background-color: darkred;
+}
+.select-wrapper {
+    display: flex;
+    align-items: baseline;
+}
+
+.select-wrapper select {
+    flex-shrink: 0;
+}
+
+.add-class-wrapper a {
+    text-decoration: none;
+    font-size: 18px; /* Размер иконки */
+    color: green; /* Цвет иконки */
+}
+
+.add-class-wrapper i {
+    margin-left: 5px;
+}
+
+#species{
+    width: 95%;
+}
+#classes{
+    width: 95%;
+}
+#input{
+    color: #1e1e1e;
+}
+hr {
+    border: none; /* Убираем стандартный бордер */
+    height: 2px; /* Толщина линии */
+    background-color: #000; /* Цвет линии */
+    margin: 20px 0; /* Отступы */
+}
+
+/* Адаптивность */
+@media (max-width: 1524px) {
+    .tier-column {
+        flex: 1 1 30%; /* На средних экранах 3 колонки в ряд */
+    }
+}
+
+@media (max-width: 768px) {
+    .tier-column {
+        flex: 1 1 45%; /* На маленьких экранах 2 колонки в ряд */
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        font-size: 1.5em; /* Уменьшим заголовок */
+        padding: 15px;
+    }
+    .tier-column {
+        flex: 1 1 100%; /* На очень маленьких экранах 1 колонка в ряд */
+    }
+    .hero-item img {
+        width: 30px;
+        height: 30px;
+    }
+    .hero-item span {
+        font-size: 0.9em; /* Уменьшаем текст */
+    }
+}
+/*header*/
+.header {
+    background-color: #2c2c2c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    border-bottom: 2px solid #444;
+}
+
+.logo {
+    font-size: 1.5em;
+    color: #ffcc00;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #ffcc00;
+}
+.nav-links span:hover {
+    color: #ffcc00;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+}
+/*Админ панель*/
+.sidebar {
+    width: 20%;
+    background-color: #2c2c2c;
+    color: #ECF0F1;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+.sidebar a {
+    color: #ECF0F1;
+    text-decoration: none;
+    padding: 0.5em 0;
+    border-bottom: 1px solid #ffcc00;
+}
+
+.sidebar a:hover {
+    background-color: #ffcc00;
+    cursor: pointer;
+}
+
+/* Стиль центральной области */
+.main-content {
+    width: 80%;
+    padding: 2em;
+    background-color: #ECF0F1;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    background: #fff;
+    padding: 1em;
+    border: 1px solid #bdc3c7;
+    border-radius: 8px;
+}
+
+.menu-item {
+    padding: 1em;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    text-align: center;
+    background-color: #494242;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.menu-item:hover {
+    background-color: #2c2c2c;
+    cursor: pointer;
+}
+.body_admin{
+    display: flex;
+}
+
+/*select*/
+.select-wrapper {
+    position: relative;
+    width: 250px; /* Устанавливаем нужную ширину */
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown-button {
+    background-color: #dadada;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    /* чтобы оставить место для стрелки */
+    padding: 10px 30px 10px 10px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu li {
+    padding: 8px;
+}
+
+.dropdown-menu li label {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu li label input {
+    margin-right: 8px;
+}
+
+.add-class-wrapper {
+    margin-top: 10px;
+}
+
+.dropdown-button.active + .dropdown-menu {
+    display: block;
+}
+
+.dropdown-button:after {
+    content: ' ▼';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dropdown-button.active:after {
+    content: ' ▲';
+}
+.width-50{
+    width: 50px;
+}
+
+.sidebar .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+
+.sidebar .dropdown-content a {
+    display: block;
+    padding: 8px;
+    text-decoration: none;
+    color: black;
+}
+
+.sidebar .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    background-color: #7d6868;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    margin: 0 5px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover svg {
+    transform: scale(1.2); /* Увеличение иконки на 20% */
+}
+
+.container_table_category {
+    max-width: 900px;
+    margin: 50px auto;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    background-color: #1e1e1e;
+
+}
+
+.category {
+    position: relative; /* Это нужно для позиционирования всплывающей информации */
+    padding: 10px;
+}
+
+.category img {
+    width: 50px; /* Задайте подходящий размер иконки */
+    height: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.category img:hover + .tooltip {
+    display: block;
+    transform: scale(1.2);
+}
+
+.category-info, .category-cost {
+    margin-right: 10px;
+}
+
+/* Всплывающая информация */
+.tooltip {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.container_category{
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.item_category{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 250px;
+}
+.ul_category{
+    list-style: none;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.ability-content {
+    text-align: center; /* Центрируем содержимое */
+    margin-bottom: 10px; /* Отступ между содержимым и кнопками */
+}
+
+.button-group {
+    text-align: center; /* Центрируем кнопки */
+}
+.item_ability{
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 250px;
+}
+

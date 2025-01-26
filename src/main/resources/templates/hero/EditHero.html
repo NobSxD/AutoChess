@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container">
+    <div th:if="${successMessage}" style="color: green;">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <h1>Изменение Героя</h1>
+    <form id="heroForm" action="/heroes/edit" method="post" enctype="multipart/form-data">
+        <!-- ID героя (скрытое поле) -->
+        <input type="hidden" name="id" th:value="${hero.id}"/>
+
+        <!-- Имя героя -->
+        <div>
+            <label for="nameHero">Имя Героя:</label>
+            <input type="text" id="nameHero" name="nameHero" th:value="${hero.getNameHero()}"/>
+        </div>
+
+        <!-- Тир героя -->
+        <label for="tirHero">Тир Героя:</label>
+        <input type="number" id="tirHero" name="tirHero" min="1" th:value="${hero.tirHero}"/>
+
+        <!-- Вид героя -->
+        <div>
+            <label for="species">Раса Героя:</label>
+            <div class="select-wrapper">
+                <select id="species" name="species">
+                    <option value="">Выберите расу</option>
+                    <th:block th:each="specie : ${species}">
+                        <option th:value="${specie.getId()}" th:text="${specie.getName()}"
+                                th:selected="${hero.rasa?.getId() == specie.getId()}"></option>
+                    </th:block>
+                </select>
+
+                <div class="add-class-wrapper">
+                    <a href="/add_species" title="Добавить новую ">
+                        <i class="fas fa-plus text-success"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Классы героя -->
+
+        <div>
+            <div class="select-wrapper">
+                <div class="dropdown">
+                    <button class="dropdown-button">Выберите класс</button>
+                    <ul class="dropdown-menu">
+                        <th:block th:each="classes : ${heroClasses}">
+                            <li>
+                                <label>
+                                    <input name="classes" class="width-50" type="checkbox"
+                                           th:value="${classes.id}"
+                                           th:text="${classes.name}"
+                                           th:checked="${hero.classes?.contains(classes)}" />
+                                </label>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+                <div class="add-class-wrapper">
+                    <a href="/categories/add/class" title="Добавить новый класс">
+                        <i class="fas fa-plus text-success"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Макс. опыт -->
+        <label for="max_xp">Макс. XP:</label>
+        <input type="number" id="max_xp" name="max_xp" th:value="${hero.getMax_xp()}"/>
+
+        <!-- Описание -->
+        <label for="description">Описание:</label>
+        <textarea id="description" name="description" rows="4" th:text="${hero.description}"></textarea>
+
+        <!-- Фото -->
+        <label for="icon_hero">Иконка героя (заменить):</label>
+        <input type="file" id="icon_hero" name="icon" accept="image/*"/>
+        <!-- Фото -->
+        <label for="icon_hero2">Иконка героя:</label>
+        <input type="file" id="icon_hero2" name="icon2" accept="image/hero/*" >
+
+        <!-- Атаки -->
+        <h3>Атаки</h3>
+        <div id="attacks">
+            <th:block th:each="attack, iter : ${hero.attacks}">
+                <div class="attack">
+                    <input type="number" th:name="@{'attacks[' + ${iter.index} + '].speed_attack'}"
+                           placeholder="Скорость атаки" th:value="${attack.getSpeed_attack()}"/>
+                    <input type="number" th:name="@{'attacks[' + ${iter.index} + '].damage'}"
+                           placeholder="Урон" th:value="${attack.damage}"/>
+                    <input type="number" th:name="@{'attacks[' + ${iter.index} + '].range_damage'}"
+                           placeholder="Урон на расстоянии" th:value="${attack.getRange_damage()}"/>
+                    <input type="number" th:name="@{'attacks[' + ${iter.index} + '].speed_movement'}"
+                           placeholder="Скорость передвижения" th:value="${attack.getSpeed_movement()}"/>
+                    <input type="number" th:name="@{'attacks[' + ${iter.index} + '].additional_spell_damage'}"
+                           placeholder="Доп. урон от заклинаний" th:value="${attack.getAdditional_spell_damage()}"/>
+                    <input type="number" th:name="@{'attacks[' + ${iter.index} + '].mana_recovery'}"
+                           placeholder="Восстановление маны" th:value="${attack.getMana_recovery()}"/>
+                    <hr>
+                </div>
+            </th:block>
+        </div>
+        <button type="button" onclick="addAttack()">Добавить Атаку</button>
+
+        <!-- Брони -->
+        <h3>Брони</h3>
+        <div id="armors">
+            <th:block th:each="armor, iter : ${hero.armors}">
+                <div class="armor">
+                    <input type="number" th:name="@{'armors[' + ${iter.index} + '].armor'}" placeholder="Броня"
+                           step="any"
+                           th:value="${armor.armor}"/>
+                    <input type="number" th:name="@{'armors[' + ${iter.index} + '].protection_physical'}"
+                           placeholder="Физическая защита"
+                           step="any"
+                           th:value="${armor.getProtection_physical()}"/>
+                    <input type="number" th:name="@{'armors[' + ${iter.index} + '].protection_mag'}" placeholder="Магическая защита"
+                           step="any"
+                           th:value="${armor.getProtection_mag()}"/>
+                    <input type="number" th:name="@{'armors[' + ${iter.index} + '].protection_effects'}"
+                           placeholder="Защита от эффектов"
+                           step="any"
+                           th:value="${armor.getProtection_effects()}"/>
+                    <input type="number" th:name="@{'armors[' + ${iter.index} + '].protection_slowing_down'}"
+                           placeholder="Защита от замедления" step="any"
+                           th:value="${armor.getProtection_slowing_down()}"/>
+                    <input type="number" th:name="@{'armors[' + ${iter.index} + '].avoidance'}" placeholder="Уклонение" step="any"
+                           th:value="${armor.avoidance}"/>
+                    <input type="number" th:name="@{'armors[' + ${iter.index} + '].restoration_health'}"
+                           placeholder="Восстановление здоровья" step="any"
+                           th:value="${armor.getRestoration_health()}"/>
+
+                </div>
+            </th:block>
+        </div>
+        <button type="button" onclick="addArmor()">Добавить Броню</button>
+
+        <!-- Умения -->
+        <h3>Скил героя</h3>
+        <div id="skills">
+            <th:block th:each="skill, iter : ${hero.skills}">
+                <div class="skill">
+                    <input type="text" th:name="@{'skills[' + ${iter.index} + '].name_skill'}" placeholder="Имя скила"
+                           th:value="${skill.getName_skill()}"/>
+                    <input type="text" th:name="@{'skills[' + ${iter.index} + '].type_damage'}" placeholder="Тип урона"
+                           th:value="${skill.getType_damage()}"/>
+                    <select id="type_skill-${iter.index}" th:name="@{'skills[' + ${iter.index} + '].type_skill'}">
+                        <option value="" th:selected="${skill.getType_skill()} == ''">Выбрать...</option>
+
+                        <!-- Если значение совпадает с "Active", эта опция будет выбрана -->
+                        <option th:value="'Active'" th:selected="${skill.getType_skill()} == 'Active'">Active</option>
+
+                        <!-- Если значение совпадает с "Passive", эта опция будет выбрана -->
+                        <option th:value="'Passive'" th:selected="${skill.getType_skill()} == 'Passive'">Passive</option>
+                    </select>
+                    <input type="text" th:name="@{'skills[' + ${iter.index} + '].description_skill'}" placeholder="Описание"
+                           th:value="${skill.getDescription_skill()}"/>
+                    <input type="number" th:name="@{'skills[' + ${iter.index} + '].damage_skill'}" placeholder="Урон"
+                           th:value="${skill.getDamage_skill()}"/>
+                    <h4>Дополнительные параметры скила</h4>
+                    <div class="parameters">
+                        <th:block th:each="parameter, paramIter : ${skill.parameters}">
+                            <div class="parameter">
+                                <input type="text"
+                                       th:name="@{'skills[' + ${iter.index}+ '].parameters[' + ${paramIter.index} + '].name_parameters'}"
+                                       placeholder="Имя параметра" th:value="${parameter.getName_parameters()}"/>
+                                <input type="number" th:name="@{'skills[' + ${iter.index} + '].parameters[' + ${paramIter.index} + '].count'}"
+                                       placeholder="Значение параметра" th:value="${parameter.count}"/>
+                            </div>
+                        </th:block>
+                    </div>
+                    <button type="button" onclick="addParameters(this, ${iter.index})">Добавить Параметр</button>
+                    <label for="icon_skill-${iter.index}">Иконка умения:</label>
+                    <input type="file" id="icon_skill-${iter.index}" th:name="@{'skills[' + ${iter.index} + '].icon_skill'}"
+                           accept="image/skill/*"/>
+                    <hr>
+                </div>
+            </th:block>
+        </div>
+        <button type="button" onclick="addSkill()">Добавить Умение</button>
+
+        <!-- Кнопка для завершения редактирования -->
+        <button type="submit">Сохранить изменения</button>
+    </form>
+    <form th:action="@{'/heroes/delete/' + ${hero.getId()}}" method="post">
+        <!-- Замените {id} на id героя -->
+        <button type="submit" class="delete-button">Удалить героя</button>
+    </form>
+</div>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+<script src="/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить абилку</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container">
+    <div th:if="${successMessage}" style="color: green;">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <h1>Добавить Абилку</h1>
+    <form action="/ability/add" method="post" enctype="multipart/form-data">
+        <label for="icon_file">Иконка:</label>
+        <input type="file" id="icon_file" name="icon_file">
+        <br>
+        <label for="nameAbility">Название:</label>
+        <input type="text" id="nameAbility" name="nameAbility" required>
+        <br>
+        <label for="description">Описание:</label>
+        <input type="text" id="description" name="description" required>
+        <br>
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+</body>
+</html>

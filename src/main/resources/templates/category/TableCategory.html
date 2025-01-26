@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Рассы и классы</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+
+<div class="container_table_category">
+    <div class="categories">
+        <!-- Список категорий (генерация через Thymeleaf) -->
+        <ul class="ul_category nav-links">
+            <th:block th:if="${categories}" th:each="category : ${categories}">
+                <li class=" item_category">
+                    <div class="category">
+                        <img th:src="@{${category.getIcon()}}" alt="Изображение">
+                    </div>
+                    <div class="tooltip" th:text="${category.getDescription()}"></div>
+                    <div class="category-info">
+                        <h3>
+                            <a th:href="@{'/categories/' + ${category.getRasaOrClass()} + '/' +  ${category.getId()}}"
+                               th:text="${category.name}"></a> <!-- Ссылка на название -->
+                        </h3>
+                    </div>
+                    <div class="category-cost">
+                        <h3>
+                            <i>$</i><span th:text="${category.getCost()}"></span>
+                        </h3>
+                    </div>
+
+                </li>
+            </th:block>
+        </ul>
+    </div>
+</div>
+
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+</body>
+</html>

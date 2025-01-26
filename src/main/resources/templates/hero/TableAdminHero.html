@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Герои</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container_table">
+    <div class="tier-column" th:if="${heroes.size() > 0}">
+        <h3>Тир 1</h3>
+        <ul class="hero-list">
+            <th:block th:each="hero : ${heroes[0]}">
+                <li class="hero-item">
+                    <ul class="nav-links">
+                        <li><img th:src="${hero.getIcon()}" th:alt="${hero.getNameHero()}"></li>
+                        <li><a th:href="@{'admin/' + ${hero.getId()}}"><span
+                                th:text="${hero.getNameHero()}"></span></a></li>
+                        <li><a th:if="${hero.getRasa()}" th:href="@{'rase/' + ${hero.getRasa().getId()}}">
+                            <img th:src="${hero.getRasa().getIcon()}" th:alt="${hero.getRasa().getName()}">
+                        </a></li>
+                        <th:block th:if="${hero.getClasses()}" th:each="heroClass : ${hero.getClasses()}">
+                            <li><a th:href="@{'classes/' + ${heroClass.getId()}}">
+                                <img th:src="${heroClass.getIcon()}">
+                            </a> </li>
+                        </th:block>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+
+    <div class="tier-column" th:if="${heroes.size() > 1}">
+        <h3>Тир 2</h3>
+        <ul class="hero-list">
+            <th:block th:each="hero : ${heroes[1]}">
+                <li class="hero-item">
+                    <ul class="nav-links">
+                        <li><img th:src="${hero.getIcon()}" th:alt="${hero.getNameHero()}"></li>
+                        <li><a th:href="@{'admin/' + ${hero.getId()}}"><span
+                                th:text="${hero.getNameHero()}"></span></a></li>
+                        <li><a th:if="${hero.getRasa()}" th:href="@{'rase/' + ${hero.getRasa().getId()}}">
+                            <img th:src="${hero.getRasa().getIcon()}" th:alt="${hero.getRasa().getName()}">
+                        </a></li>
+                        <th:block th:if="${hero.getClasses()}" th:each="heroClass : ${hero.getClasses()}">
+                            <li><a th:href="@{'classes/' + ${heroClass.getId()}}">
+                                <img th:src="${heroClass.getIcon()}">
+                            </a> </li>
+                        </th:block>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+
+    <div class="tier-column" th:if="${heroes.size() > 2}">
+        <h3>Тир 3</h3>
+        <ul class="hero-list">
+            <th:block th:each="hero : ${heroes[2]}">
+                <li class="hero-item">
+                    <ul class="nav-links">
+                        <li><img th:src="${hero.getIcon()}" th:alt="${hero.getNameHero()}"></li>
+                        <li><a th:href="@{'admin/' + ${hero.getId()}}"><span
+                                th:text="${hero.getNameHero()}"></span></a></li>
+                        <li><a th:if="${hero.getRasa()}" th:href="@{'rase/' + ${hero.getRasa().getId()}}">
+                            <img th:src="${hero.getRasa().getIcon()}" th:alt="${hero.getRasa().getName()}">
+                        </a></li>
+                        <th:block th:if="${hero.getClasses()}" th:each="heroClass : ${hero.getClasses()}">
+                            <li><a th:href="@{'classes/' + ${heroClass.getId()}}">
+                                <img th:src="${heroClass.getIcon()}">
+                            </a> </li>
+                        </th:block>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+
+    <div class="tier-column" th:if="${heroes.size() > 3}">
+        <h3>Тир 4</h3>
+        <ul class="hero-list">
+            <th:block th:each="hero : ${heroes[3]}">
+                <li class="hero-item">
+                    <ul class="nav-links">
+                        <li><img th:src="${hero.getIcon()}" th:alt="${hero.getNameHero()}"></li>
+                        <li><a th:href="@{'admin/' + ${hero.getId()}}"><span
+                                th:text="${hero.getNameHero()}"></span></a></li>
+                        <li><a th:if="${hero.getRasa()}" th:href="@{'rase/' + ${hero.getRasa().getId()}}">
+                            <img th:src="${hero.getRasa().getIcon()}" th:alt="${hero.getRasa().getName()}">
+                        </a></li>
+                        <th:block th:if="${hero.getClasses()}" th:each="heroClass : ${hero.getClasses()}">
+                            <li><a th:href="@{'classes/' + ${heroClass.getId()}}">
+                                <img th:src="${heroClass.getIcon()}">
+                            </a> </li>
+                        </th:block>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+
+    <div class="tier-column" th:if="${heroes.size() > 4}">
+        <h3>Тир 5</h3>
+        <ul class="hero-list">
+            <th:block th:each="hero : ${heroes[4]}">
+                <li class="hero-item">
+                    <ul class="nav-links">
+                        <li><img th:src="${hero.getIcon()}" th:alt="${hero.getNameHero()}"></li>
+                        <li><a th:href="@{'admin/' + ${hero.getId()}}"><span
+                                th:text="${hero.getNameHero()}"></span></a></li>
+                        <li><a th:if="${hero.getRasa()}" th:href="@{'rase/' + ${hero.getRasa().getId()}}">
+                            <img th:src="${hero.getRasa().getIcon()}" th:alt="${hero.getRasa().getName()}">
+                        </a></li>
+                        <th:block th:if="${hero.getClasses()}" th:each="heroClass : ${hero.getClasses()}">
+                            <li><a th:href="@{'classes/' + ${heroClass.getId()}}">
+                                <img th:src="${heroClass.getIcon()}">
+                            </a> </li>
+                        </th:block>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+</div>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+
+</body>
+</html>

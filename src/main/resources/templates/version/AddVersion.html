@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить Патч</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.tiny.cloud/1/2xpz658rmmn1b80lq6l7w4lgexs0tibp8y909hwd3l7m7ay8/tinymce/5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#content', // Привязываемся к textarea с ID "content"
+            plugins: 'image',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | image',
+            images_upload_url: '/upload/image', // URL для загрузки изображений
+            automatic_uploads: true,
+            file_picker_types: 'image',
+            file_picker_callback: function (callback, value, meta) {
+                let input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function () {
+                    let file = input.files[0];
+                    let formData = new FormData();
+                    formData.append('file', file);
+
+                    fetch('/upload/image', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            callback(data.location);
+                        })
+                        .catch(error => {
+                            alert('Ошибка при загрузке изображения: ' + error.message);
+                        });
+                };
+                input.click();
+            }
+        });
+    </script>
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container">
+    <!-- Уведомления -->
+    <div th:if="${successMessage}" style="color: green;">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <h2>Создать статьтю</h2>
+    <form action="/articles/add/version" method="post">
+        <div>
+            <label for="title">Заголовок</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <label for="content">Содержимое</label>
+            <!-- Это поле будет редактироваться через TinyMCE -->
+            <textarea id="content" name="content" rows="40"></textarea>
+        </div>
+        <div>
+            <button type="submit">Сохранить</button>
+        </div>
+    </form>
+</div>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+</body>
+</html>

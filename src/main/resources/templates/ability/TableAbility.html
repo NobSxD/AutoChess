@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Абилки</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+
+<div class="container_table_category">
+    <div class="categories">
+        <h1 style="color: #dadada">Список Абилок</h1>
+        <!-- Список категорий (генерация через Thymeleaf) -->
+        <ul class="ul_category nav-links">
+            <th:block th:if="${abilities}" th:each="ability : ${abilities}">
+                <li class=" item_category">
+                    <div class="category">
+                        <img th:src="@{${ability.getIcon()}}" alt="Изображение">
+                    </div>
+                    <h3>
+                        <div th:text="${ability.getNameAbility()}"></div>
+                    </h3>
+                    <div class="tooltip" th:text="${ability.getDescription()}"></div>
+
+                </li>
+            </th:block>
+        </ul>
+    </div>
+</div>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+</body>
+</html>

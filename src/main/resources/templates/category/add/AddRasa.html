@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить расу</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container">
+    <div th:if="${successMessage}" style="color: green;">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <form id="classForm" action="/categories/add/rasa" method="post" enctype="multipart/form-data">
+        <h1>Добавить Расу</h1>
+        <div>
+            <label for="name">Название:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div>
+            <label for="effectScope">Область эффекта:</label>
+            <input type="text" id="effectScope" name="effectScope">
+        </div>
+
+        <div>
+            <label for="speciesTrait">Характеристика:</label>
+            <input type="text" id="speciesTrait" name="speciesTrait">
+        </div>
+
+        <div>
+            <label for="description">Описание:</label>
+            <textarea id="description" name="description"></textarea>
+        </div>
+
+        <div>
+            <label for="iconCategory">Иконка:</label>
+            <input type="file" id="iconCategory" name="iconCategory">
+        </div>
+
+        <div>
+            <label for="details">Детали:</label>
+            <textarea id="details" name="details"></textarea>
+        </div>
+        <button class="green" type="submit">Сохранить класс</button>
+    </form>
+</div>
+
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Карточка героя: ' + ${hero.nameHero}">Карточка героя</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        .hero-icon {
+            width: 150px;
+            height: 150px;
+            border-radius: 5%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon-small {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            object-fit: cover;
+        }
+
+        .card-section {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container mt-4 mb-4">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 th:text="'Герой: ' + ${hero.nameHero}" class="mb-3">Карточка героя</h1>
+        </div>
+        <div class="col-md-4 text-center">
+            <img th:src="${hero.icon}" class="hero-icon" alt="Иконка героя">
+            <h3 th:text="${hero.nameHero}" class="mt-3"></h3>
+            <p>Раса: <span th:if="${hero.rasa}" th:text="${hero.rasa.name}"></span></p>
+            <p>Тир: <span th:text="${hero.tirHero}"></span></p>
+            <p>Максимальный XP: <span th:text="${hero.max_xp}"></span></p>
+            <p>Максимальный MP: <span th:text="${hero.max_mp}"></span></p>
+        </div>
+        <div class="col-md-8">
+            <h4>Описание</h4>
+            <p th:text="${hero.description}"></p> <!-- Описание героя -->
+
+            <div class="card-section">
+                <h5>Классы</h5>
+                <div class="d-flex flex-wrap gap-3">
+                    <a th:href="@{'/hero-class/' + ${clazz.id}}" th:each="clazz : ${hero.classes}" class="text-center">
+                        <img th:src="${clazz.icon}" class="icon-small" alt="Иконка класса"
+                             title="Класс: [[${clazz.name}]]">
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-section">
+                <h5>Ближние атаки</h5>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Иконка</th>
+                        <th>Скорость</th>
+                        <th>Урон</th>
+                        <th>Дальность</th>
+                        <th>Бонус к магии</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="attack : ${hero.attacks}">
+                        <td><img th:src="${attack.icon}" class="icon-small" alt="Иконка атаки"></td>
+                        <td th:text="${attack.speed_attack}"></td>
+                        <td th:text="${attack.damage}"></td>
+                        <td th:text="${attack.range_damage}"></td>
+                        <td th:text="${attack.additional_spell_damage}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-section">
+                <h5>Защита</h5>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Иконка</th>
+                        <th>Броня</th>
+                        <th>Физ. защита</th>
+                        <th>Маг. защита</th>
+                        <th>Регенерация здоровья</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="armor : ${hero.armors}">
+                        <td><img th:src="${armor.icon}" class="icon-small" alt="Иконка брони"></td>
+                        <td th:text="${armor.armor}"></td>
+                        <td th:text="${armor.protection_physical}"></td>
+                        <td th:text="${armor.protection_mag}"></td>
+                        <td th:text="${armor.restoration_health}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-section">
+                <h5>Навыки</h5>
+                <div class="row g-3">
+                    <div class="col-lg-4 col-md-6" th:each="skill : ${hero.skills}">
+                        <div class="card">
+                            <img th:src="${skill.icon}" class="card-img-top" alt="Иконка умения">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${skill.name_skill}"></h5>
+                                <p class="card-text" th:text="${skill.getDescription_skill}"></p>
+                                <p class="card-text">
+                                    <strong>Урон:</strong> <span th:text="${skill.getDamage_skill}"></span><br>
+                                    <strong>Требуемая мана:</strong> <span th:text="${skill.cast_mp}"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="mt-4 mb-4">
+
+    <div class="row">
+        <h4>Другие герои этой расы</h4>
+        <div class="d-flex flex-wrap gap-3">
+            <th:blok th:if="${hero.rasa}" >
+                <a th:if="${hero.rasa.heroes}" th:href="@{'/hero/' + ${otherHero.id}}"
+                   th:each="otherHero : ${hero.rasa.heroes}" class="text-center">
+                    <img th:src="${otherHero.icon}" class="icon-small" alt="Иконка героя"
+                         title="Герой: [[${otherHero.nameHero}]]">
+                </a>
+            </th:blok>
+        </div>
+    </div>
+
+    <hr class="mt-4 mb-4">
+
+    <div class="row">
+        <h4>Другие герои этого класса</h4>
+        <div class="d-flex flex-wrap gap-3">
+            <th:blok th:if="${hero.classes}" th:each="clazz : ${hero.classes}" >
+                <a th:if="${clazz.heroes}" th:href="@{'/hero/' + ${otherHero.id}}"
+                   th:each="otherHero : ${clazz.heroes}" class="text-center">
+                    <img th:src="${otherHero.icon}" class="icon-small" alt="Иконка героя"
+                         title="Герой: [[${otherHero.nameHero}]]">
+                </a>
+            </th:blok>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+</body>
+</html>

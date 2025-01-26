@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Оружие</title>
+    <th:block th:replace="~{header/icon :: link}"></th:block>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<div class="container_table">
+    <div class="tier-column" th:if="${weapons.size() > 0}">
+        <h3>Тир 1</h3>
+        <ul class="hero-list">
+            <th:block th:each="weapon : ${weapons[0]}">
+                <li class="hero-item">
+                    <ul class="nav-links">
+                        <li><img th:src="${weapon.getIcon()}" th:alt="${weapon.getName()}"></li>
+                        <li><a th:href="@{'/weapon/' + ${weapon.getId()}}"><span
+                                th:text="${weapon.getName()}"></span></a></li>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+
+    <div class="tier-column" th:if="${weapons.size() > 1}">
+        <h3>Тир 2</h3>
+        <ul class="hero-list">
+            <th:block th:each="weapon : ${weapons[1]}">
+                <li class="hero-item">
+                    <ul class="nav-links">
+                        <li><img th:src="${weapon.getIcon()}" th:alt="${weapon.getName()}"></li>
+                        <li><a th:href="@{'/weapon/' + ${weapon.getId()}}"><span
+                                th:text="${weapon.getName()}"></span></a></li>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+
+    <div class="tier-column" th:if="${weapons.size() > 2}">
+        <h3>Тир 3</h3>
+        <ul class="hero-list">
+            <th:block th:each="weapon : ${weapons[2]}">
+                <li class="hero-item">
+                    <ul class="nav-links">
+                        <li><img th:src="${weapon.getIcon()}" th:alt="${weapon.getName()}"></li>
+                        <li><a th:href="@{'/weapon/' + ${weapon.getId()}}"><span
+                                th:text="${weapon.getName()}"></span></a></li>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+
+    <div class="tier-column" th:if="${weapons.size() > 3}">
+        <h3>Тир 4</h3>
+        <ul class="hero-list">
+            <th:block th:each="weapon : ${weapons[3]}">
+                <li class="hero-item">
+                    <ul class="nav-links">
+                        <li><img th:src="${weapon.getIcon()}" th:alt="${weapon.getName()}"></li>
+                        <li><a th:href="@{'/weapon/' + ${weapon.getId()}}"><span
+                                th:text="${weapon.getName()}"></span></a></li>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+
+    <div class="tier-column" th:if="${weapons.size() > 4}">
+        <h3>Тир 5</h3>
+        <ul class="hero-list">
+            <th:block th:each="weapon : ${weapons[4]}">
+                <li class="hero-item">
+                    <ul class="nav-links">
+                        <li><img th:src="${weapon.getIcon()}" th:alt="${weapon.getName()}"></li>
+                        <li><a th:href="@{'/weapon/' + ${weapon.getId()}}"><span
+                                th:text="${weapon.getName()}"></span></a></li>
+                    </ul>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+</div>
+
+<th:block th:replace="~{header/footer :: footer}"></th:block>
+
+</body>
+</html>
